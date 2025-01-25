@@ -33,7 +33,15 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
-    // Store a new product
+    private function fetchImageFromAPI()
+    {
+        $client = new \GuzzleHttp\Client();
+        $response = $client->get('https://picsum.photos/200/300');
+
+        // La respuesta es una redirección a la URL de la imagen
+        $imageUrl = $response->getHeaderLine('Location');
+        return $imageUrl;
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -41,19 +49,26 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'description' => 'required|string',
             'category' => 'required|string',
-            'image_url' => 'required|image',
+            'image_url' => 'nullable|image',
         ]);
 
-        // Upload the image to an external service
-        $imageUrl = $this->uploadImageToExternalService($request->file('image'));
-
-        $data = $request->all();
+        if ($request->hasFile('image')) {
+            // Upload the image to an external service
+            $imageUrl = $this->uploadImageToExternalService($request->file('image'));
+        } else {
+            // Fetch a random image from an external API
+            $imageUrl = $this->fetchImageFromAPI($request->input('name'));
+        }
+            $data = $request->all();
         $data['image_url'] = $imageUrl;
 
         $product = $this->productRepository->create($data);
 
         return response()->json($product, 201);
     }
+
+
+
 
     // Update a product
     public function update(Request $request, $id)
@@ -111,4 +126,5 @@ class ProductController extends Controller
         $data = json_decode($response->getBody(), true);
         return $data['url'];  // Assuming the response contains the image URL
     }
+
 }
