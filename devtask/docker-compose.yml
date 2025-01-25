@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+    mysql:
+        image: mysql:8.0 # You can specify any version you need
+        container_name: mysql-container
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root_password # Set the root password for MySQL
+            MYSQL_DATABASE: laravel_db        # Set the database name
+            MYSQL_USER: laravel_user          # Set the database user
+            MYSQL_PASSWORD: laravel_password  # Set the database user's password
+        volumes:
+            - mysql_data:/var/lib/mysql       # Persistent data storage
+        networks:
+            - laravel_network
+        ports:
+            - "3306:3306"                     # Expose MySQL port
+
+    # Optionally, you can add a phpmyadmin service for easy database management
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin-container
+        environment:
+            PMA_HOST: mysql                  # Hostname of the MySQL service
+            PMA_USER: laravel_user           # MySQL username
+            PMA_PASSWORD: laravel_password   # MySQL password
+        ports:
+            - "8080:80"                       # Expose phpMyAdmin web interface on port 8080
+        networks:
+            - laravel_network
+
+networks:
+    laravel_network:
+        driver: bridge
+
+volumes:
+    mysql_data:
+        driver: local
