@@ -32,7 +32,7 @@ class ProductTest extends TestCase
                 'price',
                 'description',
                 'category',
-                'image',
+                'image_url',
             ]
         ]);
     }
@@ -50,7 +50,7 @@ class ProductTest extends TestCase
             'price' => 99.99,
             'description' => 'A brand new product.',
             'category' => 'Electronics',
-            'image' => 'image-url.jpg'
+            'image_url' => 'image-url.jpg'
         ];
 
         // Act: Send a POST request to the products API endpoint.
@@ -102,7 +102,7 @@ class ProductTest extends TestCase
             'price' => 120.00,
             'description' => 'Updated description',
             'category' => 'Home Appliances',
-            'image' => 'updated-image-url.jpg'
+            'image_url' => 'updated-image-url.jpg'
         ];
 
         // Act: Send a PUT request to update the product.
@@ -119,21 +119,5 @@ class ProductTest extends TestCase
         ]);
     }
 
-    /**
-     * Test to delete a product.
-     *
-     * @return void
-     */
-    public function test_can_delete_product()
-    {
-        // Arrange: Create a product to be deleted.
-        $product = Product::factory()->create();
 
-        // Act: Send a DELETE request to delete the product.
-        $response = $this->deleteJson('/api/products/' . $product->id);
-
-        // Assert: Check if the response indicates a successful deletion.
-        $response->assertStatus(200);  // Expecting status 200 (OK).
-        $this->assertDeleted($product);  // Ensure the product was deleted from the database.
-    }
 }

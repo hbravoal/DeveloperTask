@@ -41,7 +41,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'description' => 'required|string',
             'category' => 'required|string',
-            'image' => 'required|image',
+            'image_url' => 'required|image',
         ]);
 
         // Upload the image to an external service
@@ -63,7 +63,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'description' => 'required|string',
             'category' => 'required|string',
-            'image' => 'nullable|image',
+            'image_url' => 'nullable|image',
         ]);
 
         $data = $request->all();
