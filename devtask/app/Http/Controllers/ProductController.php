@@ -14,13 +14,16 @@ class ProductController extends Controller
         $this->productRepository = $productRepository;
     }
 
-    // Fetch all products with pagination
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->productRepository->getAll();
+        $filters = $request->only(['name', 'priceRange', 'category']);
+        $page = $request->input('page', 1);  // Página actual
+        $perPage = $request->input('limit', 10);  // Página actual
+
+        $products = $this->productRepository->getFiltered($filters, $page, $perPage);
+
         return response()->json($products);
     }
-
     // Fetch a single product by ID
     public function show($id)
     {

@@ -18,6 +18,7 @@ export const useProductStore = defineStore("productStore", {
       const { products, total } = await productService.fetchProducts(this.filters, this.currentPage);
       this.products = products;
       this.total = total;
+      console.log('this.product',this.products)
     },
     async addProduct(product: Omit<Product, "id">) {
       await productService.addProduct(product);
