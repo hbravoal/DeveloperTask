@@ -11,11 +11,7 @@ class ProductRepository extends BaseRepository
         parent::__construct($product);
     }
 
-    // Add any custom methods related to the Product model here
-    public function getByCategory(string $category): LengthAwarePaginator
-    {
-        return $this->model->where('category', $category)->paginate(10);
-    }
+
 
     public function getFiltered(array $filters, $page, $perPage)
     {

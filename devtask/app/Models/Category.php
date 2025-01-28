@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Category extends Model
 {
     use HasFactory;
 
@@ -16,10 +16,7 @@ class Product extends Model
      */
     protected $fillable = [
         'name',
-        'price',
         'description',
-        'category_id', // Foreign key for the category
-        'image_url',
     ];
 
     /**
@@ -31,12 +28,5 @@ class Product extends Model
         // Add any fields you don't want to expose in JSON responses here
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'price' => 'decimal:2',  // Cast the price to a decimal with 2 decimal places
-    ];
+
 }

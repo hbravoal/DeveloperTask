@@ -26,3 +26,4 @@ Route::get('/products/{id}', [ProductController::class, 'show']); // Get specifi
 Route::post('/products', [ProductController::class, 'store']); // Create a new product
 Route::put('/products/{id}', [ProductController::class, 'update']); // Update an existing product
 Route::delete('/products/{id}', [ProductController::class, 'destroy']); // Delete a product
+Route::get('/categories', [\App\Http\Controllers\CategoryController::class, 'index']);
