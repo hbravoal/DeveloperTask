@@ -1,17 +1,14 @@
 import axios from "axios";
-import type { Product } from "../../domain/entities/Product";
-import type { ProductRepository } from "../../application/interfaces/ProductRepository";
+import type { Category } from "../../domain/entities/Category";
+import type { CategoryRepository } from "../../application/interfaces/CategoryRepository";
 
-export class ProductRepositoryImpl implements ProductRepository {
-  private baseURL = "http://127.0.0.1:8000/api/products";
+export class CategoryRepositoryImpl implements CategoryRepository {
+  private baseURL = "http://127.0.0.1:8000/api/categories";
 
-  async fetchProducts(filters: { name?: string; priceRange?: [number, number]; category?: string }, page: number): Promise<{ products: Product[]; total: number }> {
-    const response = await axios.get(this.baseURL, { params: { ...filters, page, limit: 10 } });
-    console.log('response',response.data)
-    return { products: response.data.data, total: response.data.total };
+  async fetchCategories(): Promise<{ categories: Category[]; total: number }> {
+    const response = await axios.get(this.baseURL, { });
+    console.log('response category',response.data)
+    return { categories: response.data.data, total: response.data.total };
   }
 
-  async addProduct(product: Omit<Product, "id">): Promise<void> {
-    await axios.post(this.baseURL, product);
-  }
 }

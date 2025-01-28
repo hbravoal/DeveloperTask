@@ -1,15 +1,11 @@
-import type { Product } from "../../domain/entities/Product";
-import type { ProductRepository } from "../interfaces/ProductRepository";
-import type { Filters } from '@/domain/models/Filters.ts'
+import type { CategoryRepository } from '@/application/interfaces/CategoryRepository.ts'
+import type { Category } from '@/domain/entities/Category.ts'
 
-export class ProductService {
-  constructor(private productRepository: ProductRepository) {}
+export class CategoryService {
+  constructor(private categoryRepository: CategoryRepository) {}
 
-  async fetchProducts(filters: Filters, page: number): Promise<{ products: Product[]; total: number }> {
-    return this.productRepository.fetchProducts(filters, page);
+  async fetchCategories(): Promise<{ categories: Category[]; total: number }> {
+    return this.categoryRepository.fetchCategories();
   }
 
-  async addProduct(product: Omit<Product, "id">): Promise<void> {
-    return this.productRepository.addProduct(product);
-  }
 }

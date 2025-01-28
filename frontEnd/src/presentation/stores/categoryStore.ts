@@ -1,36 +1,22 @@
 import { defineStore } from "pinia";
-import  { ProductService } from "../../application/services/ProductService";
-import  { ProductRepositoryImpl } from "../../infrastructure/repositories/ProductRepositoryImpl";
-import type { Product } from '@/domain/entities/Product.ts'
-import type { Filters } from '@/domain/models/Filters.ts'
+import  { CategoryService } from "../../application/services/CategoryService.ts";
+import  { CategoryRepositoryImpl } from "../../infrastructure/repositories/CategoryRepositoryImpl";
+import type { Category } from '@/domain/entities/Category.ts'
 
-const productService = new ProductService(new ProductRepositoryImpl());
+const categoryService = new CategoryService(new CategoryRepositoryImpl());
 
-export const useProductStore = defineStore("productStore", {
+export const useCategoryStore = defineStore("CategoryStore", {
   state: () => ({
-    products: [] as Product[],
+    categories: [] as Category[],
     total: 0,
-    currentPage: 1,
-    filters: {} as Filters,
+    selectedCategory: undefined
   }),
   actions: {
-    async fetchProducts() {
-      const { products, total } = await productService.fetchProducts(this.filters, this.currentPage);
-      this.products = products;
+    async fetchCategories() {
+      const { categories, total } = await categoryService.fetchCategories();
+      this.categories = categories;
       this.total = total;
-      console.log('this.product',this.products)
-    },
-    async addProduct(product: Omit<Product, "id">) {
-      await productService.addProduct(product);
-      this.fetchProducts();
-    },
-    setFilters(filters: { name?: string; priceRange?: [number, number]; category?: string }) {
-      this.filters = { ...this.filters, ...filters };
-      this.fetchProducts();
-    },
-    setPage(page: number) {
-      this.currentPage = page;
-      this.fetchProducts();
-    },
+      console.log('this.Category',this.categories)
+    }
   },
 });

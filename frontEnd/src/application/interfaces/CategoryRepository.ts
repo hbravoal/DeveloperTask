@@ -1,6 +1,5 @@
-import type { Product } from "../../domain/entities/Product";
+import type { Category } from "../../domain/entities/Category";
 
-export interface ProductRepository {
-  fetchProducts(filters: { name?: string; priceRange?: [number, number]; category?: string }, page: number): Promise<{ products: Product[]; total: number }>;
-  addProduct(product: Omit<Product, "id">): Promise<void>;
+export interface CategoryRepository {
+  fetchCategories(): Promise<{ categories: Category[]; total: number }>;
 }

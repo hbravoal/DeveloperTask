@@ -2,5 +2,5 @@ export interface Product {
   id: string;
   name: string;
   price: number;
-  category: string;
+  category_name: string;
 }

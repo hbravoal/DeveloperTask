@@ -26,8 +26,6 @@ export default defineComponent({
   components: { AddProduct, ProductFilters, Pagination },
   setup() {
     const productStore = useProductStore();
-
-    // Cargar productos iniciales
     productStore.fetchProducts();
 
     return { productStore };
@@ -35,15 +33,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.product-page {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-.product-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-}
-</style>
