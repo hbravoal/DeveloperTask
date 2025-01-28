@@ -36,7 +36,6 @@ export default defineComponent({
       // Calculamos la posición del valor en porcentaje
       position.value = (priceValue.value / 1000000) * 100;
     };
-console.log('prce',priceValue.value);
 
     const applyFilters = () => {
 
